@@ -1,0 +1,145 @@
+package member.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import member.bean.Member;
+import member.dao.MemberDao;
+
+
+
+public class MemberDaoImpl implements  MemberDao{
+    private DataSource dataSource;
+    
+    
+    public MemberDaoImpl() {
+        try {
+            dataSource = (DataSource) new InitialContext().lookup("java:/comp/env/jdbc/example");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public int insert(Member member) {
+        try (
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement("insert into MEMBER values (?, ?, ?, ?, ?);");
+        ) {
+            pstmt.setString(1, member.getAccount());
+            pstmt.setString(2, member.getPassword());
+            pstmt.setString(3, member.getNickname());
+            pstmt.setBoolean(4, member.getPass());
+            pstmt.setTimestamp(5, member.getLastUpdateDate());
+            
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return -1;
+    }
+
+    @Override
+    public int update(Member member) {
+        try (
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(
+            		"update MEMBER set ACCOUNT = '?', PASSWORD = '?', NICKNAME = '?', PASS = ?, LAST_UPDATE_DATE = ? where ID = ?;");
+        ) {
+            pstmt.setString(1, member.getAccount());
+            pstmt.setString(2, member.getPassword());
+            pstmt.setString(3, member.getNickname());
+            pstmt.setBoolean(4, member.getPass());
+            pstmt.setTimestamp(5, member.getLastUpdateDate());
+            pstmt.setInt(6, member.getId());
+            
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return -1;
+    }
+
+    @Override
+    public int deleteById (Integer id) {
+        try (
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement("delete from MEMBER where ID = ?;");
+        ) {
+            pstmt.setInt(1, id);
+            
+            return pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return -1;
+    }
+
+    @Override
+    public List<Member> selectAll() {
+        try (
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement("select * from MEMBER;");
+            ResultSet rs = pstmt.executeQuery();
+        ) {
+            List<Member> list = new ArrayList<Member>();
+            while (rs.next()) {
+                Member member = new Member();
+                member.setId(rs.getInt("ID"));
+                member.setAccount(rs.getString("ACCOUNT"));
+                member.setPassword(rs.getString("PASSWORD"));
+                member.setNickname(rs.getString("NICKNAME"));
+                member.setPass(rs.getBoolean("PASS"));
+                member.setLastUpdateDate(rs.getTimestamp("LAST_UPDATE_DATE"));
+            
+                list.add(member);
+            }
+            
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+
+    @Override
+    public Member selectById(Integer id) {
+        try (
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement("select * from MEMBER where ID = ?;");
+        ) {
+            pstmt.setInt(1, id);
+            try (
+                ResultSet rs = pstmt.executeQuery();
+            ) {
+                if (rs.next()) {
+                    Member member = new Member();
+                    member.setId(rs.getInt("ID"));
+                    member.setAccount(rs.getString("ACCOUNT"));
+                    member.setPassword(rs.getString("PASSWORD"));
+                    member.setNickname(rs.getString("NICKNAME"));
+                    member.setPass(rs.getBoolean("PASS"));
+                    member.setLastUpdateDate(rs.getTimestamp("LAST_UPDATE_DATE"));
+                    
+                    return member;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+
+}
