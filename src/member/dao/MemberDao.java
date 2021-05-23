@@ -7,7 +7,7 @@ import member.bean.Member;
 
 public interface MemberDao {
 	
-	int insert(Member member);
+	int insertRegist(Member member);
 	
 	int deleteById(Integer id);
 	

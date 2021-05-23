@@ -6,7 +6,7 @@ public class Member {
 
 	private Integer id;
 	private String account;
-	private String password;
+	private String password1;
 	private String nickname;
 	private Boolean pass;
 	private Timestamp lastUpdateDate;
@@ -32,7 +32,7 @@ public class Member {
 		super();
 		this.id = id;
 		this.account = account;
-		this.password = password;
+		this.password1 = password1;
 		this.nickname = nickname;
 		this.pass = pass;
 		this.lastUpdateDate = lastUpdateDate;
@@ -55,11 +55,11 @@ public class Member {
 	}
 
 	public String getPassword() {
-		return password;
+		return password1;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String password1) {
+		this.password1 = password1;
 	}
 
 	public String getNickname() {

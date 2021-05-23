@@ -27,17 +27,17 @@ public class MemberDaoImpl implements  MemberDao{
         }
     }
     
+    //註冊成功的值，存去資料庫
     @Override
-    public int insert(Member member) {
+    public int insertRegist(Member member) {
         try (
             Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("insert into MEMBER values (?, ?, ?, ?, ?);");
+            PreparedStatement pstmt = conn.prepareStatement(
+            		"insert into MEMBER(ACCOUNT,PASSWORD,NICKNAME) value (?, ?, ?);");
         ) {
             pstmt.setString(1, member.getAccount());
-            pstmt.setString(2, member.getPassword());
+            pstmt.setNString(2, member.getPassword());
             pstmt.setString(3, member.getNickname());
-            pstmt.setBoolean(4, member.getPass());
-            pstmt.setTimestamp(5, member.getLastUpdateDate());
             
             return pstmt.executeUpdate();
         } catch (Exception e) {
