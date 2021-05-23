@@ -37,16 +37,26 @@ public class RegistServlet extends HttpServlet {
 		service.registInsert(memberRegist);
 		
 		
-		
-		//回傳前端json，“註冊成功”
-		resp.setContentType("application/json");
-		resp.setCharacterEncoding("UTF-8");
-		try (PrintWriter pw = resp.getWriter()){
-			JsonObject jsonObject = new JsonObject();
-			jsonObject.addProperty("Response", "SUCCESS");
-			pw.append(jsonObject.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(service.registInsert(memberRegist) != 0) {
+			resp.setContentType("application/json");
+			resp.setCharacterEncoding("UTF-8");
+			try (PrintWriter pw = resp.getWriter()){
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("Response", "SUCCESS");
+				pw.append(jsonObject.toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			resp.setContentType("application/json");
+			resp.setCharacterEncoding("UTF-8");
+			try (PrintWriter pw = resp.getWriter()){
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("Response", "FAIL");
+				pw.append(jsonObject.toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}

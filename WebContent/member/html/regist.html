@@ -101,7 +101,7 @@
 					if (result.Response == "SUCCESS") {
 						alert("新增成功");
 						location.reload();
-					} else if (result.result_code == 0) {
+					} else if (result.Response == "FAIL") {
 						alert("新增失敗");
 					}
 				});

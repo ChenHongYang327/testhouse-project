@@ -47,6 +47,28 @@ public class MemberDaoImpl implements  MemberDao{
         return -1;
     }
 
+    //拿出ACCOUNT list 比較
+	@Override
+	public List<Member> selectAccountList() {
+
+		try (
+				Connection conn = dataSource.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("select ACCOUNT from MEMBER;");
+				ResultSet rs = pstmt.executeQuery();
+		){
+			List<Member> list = new ArrayList<Member>();
+			while(rs.next()) {
+				Member member2 = new Member();
+				member2.setAccount(rs.getString("ACCOUNT"));
+				list.add(member2);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+    
     @Override
     public int update(Member member) {
         try (
@@ -141,5 +163,7 @@ public class MemberDaoImpl implements  MemberDao{
         
         return null;
     }
+
+
 
 }
