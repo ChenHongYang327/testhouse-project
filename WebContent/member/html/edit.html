@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<style type="text/css">
+		span {
+			color: red;
+		}
+	</style>
+</head>
+<body onload="getMember()">
+	<table>
+		<tr>
+			<td>帳號：</td><td><span id="account" style="color: black;"></span><input type="hidden" id="memberId"/></td>
+		</tr>
+		<tr>
+			<td>密碼：</td><td><input type="password" size="50" id="password1"/><span id="password1_err"></span></td>
+		</tr>
+		<tr>
+			<td>確認密碼：</td><td><input type="password" size="50" id="password2"/><span id="password2_err"></span></td>
+		</tr>
+		<tr>
+			<td>暱稱：</td><td><input type="text" size="50" id="nickname"/><span id="nickname_err"></span></td>
+		</tr>
+	</table>
+	<button onclick="edit()">修改</button>
+
+	<script type="text/javascript">
+		function getMember() {
+			fetch("../getmember", {
+				method : 'POST',
+				body : JSON.stringify(),
+				headers : {
+					'Content-Type' : 'application/json; charset=UTF-8'
+				}
+			})
+			.then(resp => resp.json())
+			.then(member => {
+				console.log(member);
+				document.getElementById("memberId").value = member.id;
+				document.getElementById("account").innerText = member.account;
+				document.getElementById("nickname").value = member.nickname;
+			});
+		}
+	
+		function edit(){
+			var memberId = document.getElementById("memberId").value;
+			var password1 = document.getElementById("password1").value;
+			var password2 = document.getElementById("password2").value;
+			var nickname = document.getElementById("nickname").value;
+
+			var password1_err = document.getElementById("password1_err");
+			var password2_err = document.getElementById("password2_err");
+			var nickname_err = document.getElementById("nickname_err");
+
+			password1_err.innerText = "";
+			password2_err.innerText = "";
+			nickname_err.innerText = "";
+			
+			var canInsert = true;
+			
+			if (password1 == "") {
+				password1_err.innerText = "請輸入密碼";
+				canInsert = false;
+			} else if (password1.length < 6 || password1.length > 12) {
+				password1_err.innerText = "密碼長度請在6到12之間";
+				canInsert = false;
+			}
+			
+			if (password2 == "") {
+				password2_err.innerText = "請輸入密碼確認";
+				canInsert = false;
+			} else if (password1 != password2) {
+				password2_err.innerText = "兩次輸入的密碼不同";
+				canInsert = false;
+			}
+			
+			if (nickname == "") {
+				nickname_err.innerText = "請輸入暱稱";
+				canInsert = false;
+			} else if (nickname.length < 1 || nickname.length > 20) {
+				nickname_err.innerText = "暱稱長度請在1到20之間";
+				canInsert = false;
+			}
+			
+			//console.log(password1);
+			//console.log(password2);
+			//console.log(nickname);
+			
+			if (canInsert) {
+				fetch("../edit", {
+					method : 'POST',
+					body : JSON.stringify({
+						memberId : memberId,
+						password1 : password1,
+						nickname : nickname
+					}),
+					headers : {
+						'Content-Type' : 'application/json; charset=UTF-8'
+					}
+				})
+				.then(resp => resp.json())
+				.then(result => {
+					//console.log(result);
+					if (result.result_code == 1) {
+						alert("修改成功");
+						location.reload();
+					} else if (result.result_code == 0) {
+						alert("修改失敗");
+					}
+				});
+			}
+		}
+	</script>
+</body>
+</html>
