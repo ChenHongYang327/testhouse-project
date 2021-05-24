@@ -1,5 +1,7 @@
 package member.service;
 
+import java.util.List;
+
 import member.bean.Member;
 import member.dao.MemberDao;
 import member.dao.impl.MemberDaoImpl;
@@ -23,5 +25,12 @@ public class MemberService {
 			return 0;
 		}
 	}
-
+	
+    public int deleteById(Integer id) {
+        return dao.deleteById(id);
+    }
+    
+    public List<Member> selectAll() {
+        return dao.selectAll();
+    }
 }
