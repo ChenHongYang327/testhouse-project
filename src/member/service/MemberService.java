@@ -23,5 +23,14 @@ public class MemberService {
 			return 0;
 		}
 	}
+	
+	public Member selectById(Integer id) {
+		return dao.selectById(id);
+	}
+	
+	public int update(Member member) {
+		return dao.update(member);
+	}
+	
 
 }

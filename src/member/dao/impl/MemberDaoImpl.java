@@ -81,14 +81,11 @@ public class MemberDaoImpl implements  MemberDao{
         try (
             Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(
-            		"update MEMBER set ACCOUNT = '?', PASSWORD = '?', NICKNAME = '?', PASS = ?, LAST_UPDATE_DATE = ? where ID = ?;");
+            		"update MEMBER set PASSWORD = ?, NICKNAME = ? where ID = ?;");
         ) {
-            pstmt.setString(1, member.getAccount());
-            pstmt.setString(2, member.getPassword());
-            pstmt.setString(3, member.getNickname());
-            pstmt.setBoolean(4, member.getPass());
-            pstmt.setTimestamp(5, member.getLastUpdateDate());
-            pstmt.setInt(6, member.getId());
+            pstmt.setString(1, member.getPassword());
+            pstmt.setString(2, member.getNickname());
+            pstmt.setInt(3, member.getId());
             
             return pstmt.executeUpdate();
         } catch (Exception e) {
