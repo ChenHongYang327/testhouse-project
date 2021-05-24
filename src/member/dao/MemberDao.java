@@ -10,7 +10,7 @@ public interface MemberDao {
 	int insertRegist(Member member);
 	
 	//regist 用
-	List<Member> selectAccountList();
+	int selectAccountExist(Member member);
 	
 	int deleteById(Integer id);
 	
@@ -19,5 +19,7 @@ public interface MemberDao {
 	Member selectById(Integer id);
 	
 	List<Member> selectAll();
+
+
 
 }

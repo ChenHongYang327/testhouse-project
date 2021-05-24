@@ -34,10 +34,9 @@ public class RegistServlet extends HttpServlet {
 		//前端JSON讀入，並傳至controller
 		req.setCharacterEncoding("UTF-8");
 		Member memberRegist = json2MemberRegist(req);
-		service.registInsert(memberRegist);
 		
-		
-		if(service.registInsert(memberRegist) != 0) {
+		//判斷是否有相同帳號
+		if(service.registInsert(memberRegist) == 1) {
 			resp.setContentType("application/json");
 			resp.setCharacterEncoding("UTF-8");
 			try (PrintWriter pw = resp.getWriter()){

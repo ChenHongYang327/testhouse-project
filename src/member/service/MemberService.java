@@ -1,8 +1,5 @@
 package member.service;
 
-import java.util.Arrays;
-import java.util.List;
-
 import member.bean.Member;
 import member.dao.MemberDao;
 import member.dao.impl.MemberDaoImpl;
@@ -15,20 +12,16 @@ public class MemberService {
 		dao = new MemberDaoImpl();
 	}
 	
-	//regiter 傳去後端用,同帳號回傳0。不同則存回data service。
+	//regiter 傳去後端用,同帳號回傳0。不同則存回data service且傳1。
 	public int registInsert(Member memberRegist){
 		
-		if (compareAccountList(dao.selectAccountList(), memberRegist.getAccount()) != true) {
-			return 0;
+		if ( dao.selectAccountExist(memberRegist) == 0 ) {
+			dao.insertRegist(memberRegist);
+			return 1;
+		 
 		}else {
-			return dao.insertRegist(memberRegist);
+			return 0;
 		}
 	}
-	
-	private boolean compareAccountList(List<Member> acc , String value) {
-		return Arrays.asList(acc).contains(value);
-	}
-	
-	
 
 }

@@ -18,7 +18,7 @@ import member.dao.MemberDao;
 public class MemberDaoImpl implements  MemberDao{
     private DataSource dataSource;
     
-    
+    //建構子初始化
     public MemberDaoImpl() {
         try {
             dataSource = (DataSource) new InitialContext().lookup("java:/comp/env/jdbc/example");
@@ -46,29 +46,36 @@ public class MemberDaoImpl implements  MemberDao{
         
         return -1;
     }
-
-    //拿出ACCOUNT list 比較
+    
+    //拿出ACCOUNT比，有值 
 	@Override
-	public List<Member> selectAccountList() {
-
+	public int selectAccountExist(Member member) {
+		
 		try (
 				Connection conn = dataSource.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("select ACCOUNT from MEMBER;");
-				ResultSet rs = pstmt.executeQuery();
+				PreparedStatement pstmt = conn.prepareStatement(
+						"select ACCOUNT from MEMBER where ACCOUNT= ?;");
 		){
-			List<Member> list = new ArrayList<Member>();
-			while(rs.next()) {
-				Member member2 = new Member();
-				member2.setAccount(rs.getString("ACCOUNT"));
-				list.add(member2);
+			pstmt.setString(1, member.getAccount());
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return 1;
+			}else {
+				return 0;
 			}
-			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return -1;
 	}
+
     
+    
+	
+	
+	
+	
     @Override
     public int update(Member member) {
         try (
@@ -163,7 +170,5 @@ public class MemberDaoImpl implements  MemberDao{
         
         return null;
     }
-
-
 
 }
