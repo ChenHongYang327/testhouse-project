@@ -29,6 +29,11 @@ public class MemberService {
 		return Arrays.asList(acc).contains(value);
 	}
 	
-	
-
+    public int deleteById(Integer id) {
+        return dao.deleteById(id);
+    }
+    
+    public List<Member> selectAll() {
+        return dao.selectAll();
+    }
 }

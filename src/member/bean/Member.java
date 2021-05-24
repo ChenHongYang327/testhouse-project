@@ -6,12 +6,12 @@ public class Member {
 
 	private Integer id;
 	private String account;
-	private String password1;
+	private String password;
 	private String nickname;
 	private Boolean pass;
 	private Timestamp lastUpdateDate;
 	private String img;
-	
+	private Integer roleId;
 	
 	
 	
@@ -28,14 +28,15 @@ public class Member {
 	}
 
 	public Member(Integer id, String account, String password, String nickname, Boolean pass,
-			Timestamp lastUpdateDate) {
+			Timestamp lastUpdateDate, Integer roleId) {
 		super();
 		this.id = id;
 		this.account = account;
-		this.password1 = password1;
+        this.password = password;
 		this.nickname = nickname;
 		this.pass = pass;
 		this.lastUpdateDate = lastUpdateDate;
+		this.roleId = roleId;
 	}
 
 	public Integer getId() {
@@ -55,11 +56,11 @@ public class Member {
 	}
 
 	public String getPassword() {
-		return password1;
+		return password;
 	}
 
 	public void setPassword(String password1) {
-		this.password1 = password1;
+		this.password = password1;
 	}
 
 	public String getNickname() {
@@ -85,6 +86,11 @@ public class Member {
 	public void setLastUpdateDate(Timestamp lastUpdateDate) {
 		this.lastUpdateDate = lastUpdateDate;
 	}
-	
+    public Integer getRoleId() {
+        return roleId;
+    }
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
 	
 }
