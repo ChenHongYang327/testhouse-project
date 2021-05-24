@@ -2,17 +2,31 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
 	<display-name>testhouse-project</display-name>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>index.jsp</welcome-file>	
 	</welcome-file-list>
 	
 	<!-- 寫程式要關掉 -->
 	<!-- <request-character-encoding>UTF-8</request-character-encoding> -->
 	<!-- <response-character-encoding>UTF-8</response-character-encoding> -->
+	<!-- 登入頁面-->
+	<servlet>
+		<servlet-name>LoginCheck</servlet-name>
+		<servlet-class>member.controller.LoginCheck</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LoginCheck</servlet-name>
+		<url-pattern>/LoginCheck</url-pattern>
+	</servlet-mapping>
+	<!-- 檢查是否為登入狀態-->
+	<filter>
+		<filter-name>MyFilter</filter-name>
+		<filter-class>member.controller.MyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MyFilter</filter-name>
+		<url-pattern>/index.jsp</url-pattern>
+	</filter-mapping>
 	
 	
 
