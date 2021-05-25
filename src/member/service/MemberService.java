@@ -33,4 +33,12 @@ public class MemberService {
     public List<Member> selectAll() {
         return dao.selectAll();
     }
+    
+    public int update(Member member) {
+		return dao.update(member);
+	}
+	
+    public Member selectById(Integer id) {
+		return dao.selectById(id);
+	}
 }
