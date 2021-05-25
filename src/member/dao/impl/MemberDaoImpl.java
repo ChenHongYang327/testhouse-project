@@ -36,7 +36,7 @@ public class MemberDaoImpl implements  MemberDao{
             		"insert into MEMBER(ACCOUNT,PASSWORD,NICKNAME) value (?, ?, ?);");
         ) {
             pstmt.setString(1, member.getAccount());
-            pstmt.setNString(2, member.getPassword());
+            pstmt.setString(2, member.getPassword());
             pstmt.setString(3, member.getNickname());
             
             return pstmt.executeUpdate();
