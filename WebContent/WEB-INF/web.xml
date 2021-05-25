@@ -18,15 +18,25 @@
 		<servlet-name>LoginCheck</servlet-name>
 		<url-pattern>/LoginCheck</url-pattern>
 	</servlet-mapping>
-	<!-- 檢查是否為登入狀態-->
+	<!-- 首頁檢查是否為登入狀態-->
 	<filter>
-		<filter-name>MyFilter</filter-name>
-		<filter-class>member.controller.MyFilter</filter-class>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>member.filter.LoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>MyFilter</filter-name>
+		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/index.jsp</url-pattern>
 	</filter-mapping>
+	<!-- 編輯頁檢查是否為登入狀態-->
+	<filter>
+		<filter-name>EditFilter</filter-name>
+		<filter-class>member.filter.EditFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>EditFilter</filter-name>
+		<url-pattern>/member/html/edit.html</url-pattern>
+	</filter-mapping>
+	
 	
 	
 
