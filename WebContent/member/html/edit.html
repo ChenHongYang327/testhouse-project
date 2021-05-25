@@ -28,7 +28,7 @@
 
 	<script type="text/javascript">
 		function getMember() {
-			fetch("../getmember", {
+			fetch("../../getmember", {
 				method : 'POST',
 				body : JSON.stringify(),
 				headers : {
@@ -89,7 +89,7 @@
 			//console.log(nickname);
 			
 			if (canInsert) {
-				fetch("../edit", {
+				fetch("../../edit", {
 					method : 'POST',
 					body : JSON.stringify({
 						memberId : memberId,
