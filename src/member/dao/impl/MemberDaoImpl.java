@@ -154,7 +154,7 @@ public class MemberDaoImpl implements  MemberDao{
                     member.setNickname(rs.getString("NICKNAME"));
                     member.setPass(rs.getBoolean("PASS"));
                     member.setLastUpdateDate(rs.getTimestamp("LAST_UPDATE_DATE"));
-                    
+                    member.setRoleId(rs.getInt("ROLE_ID"));
                     return member;
                 }
             }
