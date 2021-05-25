@@ -30,10 +30,12 @@ public class GetmemberController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
+		//獲取登入的session,再藉由session的key取ID的values
 		int  member = (int) req.getSession().getAttribute("ID");
-
-		Member id = memberService.selectById(member);
 		
+		//取得ID後呼叫memberService裡的方法去比對ID
+		Member id = memberService.selectById(member);
+	
 		try (PrintWriter pw = resp.getWriter()) {
 			String jsonStr = GSON.toJson(id);
 			pw.print(jsonStr);

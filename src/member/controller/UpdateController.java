@@ -3,7 +3,7 @@ package member.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +48,9 @@ public class UpdateController extends HttpServlet {
 			Member member = new Member();
 			member.setPassword(password);
 			member.setNickname(nickname);
-			member.setId(1);
+			member.setLastUpdateDate(new Timestamp(System.currentTimeMillis()));
+			member.setRoleId(2);
+			member.setId((int) request.getSession().getAttribute("ID"));
 
 			Map<String, Integer> result = new HashMap<String, Integer>();
 			if (memberService.update(member) > 0) {
