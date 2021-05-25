@@ -10,6 +10,11 @@
 	</style>
 </head>
 <body onload="getMember()">
+	<label id="displayNickname" style="float:right"></label><br>
+	<form action="actionLogout" method="POST">
+		<input type="submit" id="logout" style="float:right" value="登出"
+			onclick="if(!confirm('你確定要登出嗎?')){return false;}""/>
+</form>
 	<table>
 		<tr>
 			<td>帳號：</td><td><span id="account" style="color: black;"></span><input type="hidden" id="memberId"/></td>
@@ -37,10 +42,11 @@
 			})
 			.then(resp => resp.json())
 			.then(member => {
-				console.log(member);
+				//console.log(member);
 				document.getElementById("memberId").value = member.id;
 				document.getElementById("account").innerText = member.account;
 				document.getElementById("nickname").value = member.nickname;
+				document.getElementById('displayNickname').innerText="歡迎回來，"+member.nickname;
 			});
 		}
 	

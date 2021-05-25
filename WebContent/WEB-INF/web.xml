@@ -18,6 +18,16 @@
 		<servlet-name>LoginCheck</servlet-name>
 		<url-pattern>/LoginCheck</url-pattern>
 	</servlet-mapping>
+	<!--登出用-->
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>member.controller.Logout</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/member/html/actionLogout</url-pattern>
+	</servlet-mapping>
 	<!-- 首頁檢查是否為登入狀態-->
 	<filter>
 		<filter-name>LoginFilter</filter-name>

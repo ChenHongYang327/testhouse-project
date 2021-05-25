@@ -76,7 +76,7 @@
 		})
 			.then(response => response.json())	
 			.then(result => {
-				console.log(result)
+				//console.log(result)
 				if (result.Status == "FAIL") {
 					alert("帳號或密碼錯誤");
 					//location.reload();
