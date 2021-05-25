@@ -33,4 +33,8 @@ public class MemberService {
     public List<Member> selectAll() {
         return dao.selectAll();
     }
+    
+    public Member selectById(Integer id) {
+        return dao.selectById(id);
+    }
 }
