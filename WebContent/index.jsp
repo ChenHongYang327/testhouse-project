@@ -18,7 +18,7 @@
 	<form id="form1" method="POST">
 		<label>帳號:</label> <input type="text" id="username" name="username"> <br>
 		<label>密碼:</label> <input type="password" id="password" name="password"><br>
-		<a href="registered.jsp">註冊</a><br> 
+		<a href="member/html/regist.html">註冊</a><br> 
 		<input type="button" id="btn01" value="登入" />
 	</form>
 	
